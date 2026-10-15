@@ -11,6 +11,16 @@ export async function getActivities() {
     return [];
   }
 }
+export async function getActivity(id) {
+  try {
+    const response = await fetch(API + "/activities/" + id);
+    const result = await response.json();
+    return result;
+  } catch (e) {
+    console.error(e);
+    return [null];
+  }
+}
 
 /**
  * Sends a new activity to the API to be created.
