@@ -1,12 +1,8 @@
-import { useState } from "react";
-import { useAuth } from "./AuthContext";
-import { usePage } from "../layout/PageContext";
+import { Outlet } from "react-router";
+import { NavLink } from "react-router";
 
 /** A form that allows users to register for a new account */
 export default function Register() {
-  const { register } = useAuth();
-  const { setPage } = usePage();
-
   const [error, setError] = useState(null);
 
   const tryRegister = async (formData) => {
