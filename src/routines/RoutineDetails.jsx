@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { useAuth } from "../auth/AuthContext";
-import { getRoutine, deleteRoutine } from "../api/routine";
+import { getRoutine, deleteRoutine } from "routines";
 
 export default function RoutineDetails() {
   const { id } = useParams();
@@ -24,7 +24,7 @@ export default function RoutineDetails() {
 
     try {
       await deleteRoutine(token, routine.id);
-      navigate("/activities");
+      navigate("/routine");
     } catch (e) {
       setError(e.message);
     }
@@ -39,6 +39,8 @@ export default function RoutineDetails() {
       <p>{routine.goal}</p>
       {token && <button onClick={tryDelete}>Delete</button>}
       {error && <p role="alert">{error}</p>}
+      <SetList sets={routine.sets} syncRoutine={syncRoutine} />
+      {token && <SetForm routineId={id} syncRoutine={syncRoutine} />}
     </article>
   );
 }
