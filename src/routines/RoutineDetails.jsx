@@ -3,6 +3,9 @@ import { useNavigate, useParams } from "react-router";
 import { useAuth } from "../auth/AuthContext";
 import { getRoutine, deleteRoutine } from "routines";
 
+import SetForm from "./sets/SetForm";
+import SetList from "./sets/SetList";
+
 export default function RoutineDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -33,7 +36,7 @@ export default function RoutineDetails() {
   if (!routine) return <p>Loading...</p>;
 
   return (
-    <article>
+    <>
       <h1>{routine.name}</h1>
       <p>by {routine.creatorName}</p>
       <p>{routine.goal}</p>
@@ -41,6 +44,6 @@ export default function RoutineDetails() {
       {error && <p role="alert">{error}</p>}
       <SetList sets={routine.sets} syncRoutine={syncRoutine} />
       {token && <SetForm routineId={id} syncRoutine={syncRoutine} />}
-    </article>
+    </>
   );
 }
