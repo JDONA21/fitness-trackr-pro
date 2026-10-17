@@ -1,16 +1,14 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
+import { deleteRoutine, getRoutine } from "../api/routines";
 import { useAuth } from "../auth/AuthContext";
-import { getRoutine, deleteRoutine } from "routines";
-
-import SetForm from "./sets/SetForm";
-import SetList from "./sets/SetList";
+import SetForm from "./SetForm";
 
 export default function RoutineDetails() {
+  const { token } = useAuth();
   const { id } = useParams();
   const navigate = useNavigate();
-  const { token } = useAuth();
-  const [routine, setRoutine] = useState();
+  const [routine, setRoutine] = useState(null);
   const [error, setError] = useState(null);
 
   const syncRoutine = async (id) => {
@@ -23,11 +21,9 @@ export default function RoutineDetails() {
   }, [id]);
 
   const tryDelete = async () => {
-    setError(null);
-
     try {
-      await deleteRoutine(token, routine.id);
-      navigate("/routine");
+      await deleteRoutine(token, id);
+      navigate("/routines");
     } catch (e) {
       setError(e.message);
     }
@@ -42,8 +38,17 @@ export default function RoutineDetails() {
       <p>{routine.goal}</p>
       {token && <button onClick={tryDelete}>Delete</button>}
       {error && <p role="alert">{error}</p>}
-      <SetList sets={routine.sets} syncRoutine={syncRoutine} />
-      {token && <SetForm routineId={id} syncRoutine={syncRoutine} />}
+      <section>
+        <h2>Sets</h2>
+        <ul>
+          {routine.sets.map((set) => (
+            <li key={set.id}>
+              {set.name} x {set.count}
+            </li>
+          ))}
+        </ul>
+      </section>
+      {token && <SetForm routineId={id} />}
     </>
   );
 }

@@ -2,7 +2,6 @@ import { useState } from "react";
 import { createRoutine } from "../api/routines";
 import { useAuth } from "../auth/AuthContext";
 
-/** Users can create new activities with a name and description. */
 export default function RoutineForm({ syncRoutines }) {
   const { token } = useAuth();
   const [error, setError] = useState(null);
