@@ -48,7 +48,7 @@ export default function RoutineDetails() {
           ))}
         </ul>
       </section>
-      {token && <SetForm routineId={id} />}
+      {token && <SetForm routineId={id} syncRoutine={syncRoutine} />}
     </>
   );
 }

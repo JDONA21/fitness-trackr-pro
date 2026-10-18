@@ -11,6 +11,17 @@ export async function getRoutines() {
   }
 }
 
+export async function getRoutine(id) {
+  try {
+    const response = await fetch(API + "/routines" + id);
+    const result = await response.json();
+    return result;
+  } catch (e) {
+    console.error(e);
+    return null;
+  }
+}
+
 export async function createRoutine(token, routine) {
   const response = await fetch(API + "/routines", {
     method: "POST",
