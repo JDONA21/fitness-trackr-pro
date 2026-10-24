@@ -8,7 +8,7 @@ export default function RoutineDetails() {
   const { token } = useAuth();
   const { id } = useParams();
   const navigate = useNavigate();
-  const [routine, setRoutine] = useState(null);
+  const [routine, setRoutine] = useState();
   const [error, setError] = useState(null);
 
   const syncRoutine = async (id) => {

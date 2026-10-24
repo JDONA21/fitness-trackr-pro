@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { getActivities } from "../api/activities";
 import { addSet } from "../api/sets";
 import { useAuth } from "../auth/AuthContext";
+
 export default function SetForm({ routineId }) {
   const [activities, setActivities] = useState([]);
   const syncActivities = async () => {
